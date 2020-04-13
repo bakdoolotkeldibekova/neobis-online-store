@@ -1,2 +1,2 @@
-# neobis-online-store-
+# neobis-online-store
 Online Book Store
