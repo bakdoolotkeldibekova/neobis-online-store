@@ -12,11 +12,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "vendor")
-public class Vendor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+public class Vendor extends User{
+
 }

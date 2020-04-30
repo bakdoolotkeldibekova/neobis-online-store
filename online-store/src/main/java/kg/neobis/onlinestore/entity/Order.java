@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,27 +14,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+public class Order extends BaseEntity{
+    @Column(name = "status", nullable = false)
     private String status;
-    @Column
-    private LocalDateTime dateTime;
-    @Column
+    @Column(name = "amount", nullable = false)
     private Integer amount;
     @ManyToOne
-    @JoinColumn(name = "payment_method_id")
+    @JoinColumn(name = "payment_method_id", nullable = false)
     private PaymentMethod paymentMethod;
     @ManyToOne
-    @JoinColumn(name = "shipping_method_id")
+    @JoinColumn(name = "shipping_method_id", nullable = false)
     private PaymentMethod shippingMethod;
     @OneToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    @OneToMany
-    @JoinColumn(name = "order_item_id")
-    private List<OrderItem> orderItemList;
-
+    @OneToMany(mappedBy = "orders")
+    private List<OrderItem> items = new ArrayList<OrderItem>();
 }

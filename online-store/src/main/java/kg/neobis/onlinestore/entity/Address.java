@@ -12,18 +12,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+public class Address extends BaseEntity{
+    @Column(name = "country", nullable = false)
     private String country;
-    @Column
+    @Column(name = "region", nullable = false)
     private String region;
-    @Column
-    private String city;
-    @Column
-    private String street;
-    @Column
-    private String home;
+    @Column(name = "exact_address", nullable = false)
+    private String exactAddress;
 }

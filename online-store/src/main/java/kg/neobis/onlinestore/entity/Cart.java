@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,14 +14,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart")
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Cart extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @OneToMany
-    @JoinColumn(name = "cart_item_id")
-    private List<CartItem> cartItemList;
+    @OneToMany(mappedBy = "cart")
+    private List<CartItem> cartItemList = new ArrayList<>();
 }

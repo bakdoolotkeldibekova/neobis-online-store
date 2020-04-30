@@ -12,10 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "payment_method")
-public class PaymentMethod {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
+public class PaymentMethod extends BaseEntity{
+    @Column(name = "method", nullable = false)
     private String method;
 }

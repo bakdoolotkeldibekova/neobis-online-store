@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+public class OrderItem extends BaseEntity{
+    @Column(name = "book_quantity", nullable = false)
     private Integer bookQuantity;
     @OneToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+    @ManyToOne
+    @JoinColumn(name = "orders")
+    private Order order;
 }

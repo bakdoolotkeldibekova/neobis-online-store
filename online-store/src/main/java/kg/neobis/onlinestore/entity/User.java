@@ -12,19 +12,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+public class User extends BaseEntity{
+    @Column(name = "login", nullable = false, unique = true)
     private String name;
-    @Column
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Column
-    private String phone;
-    @Column(name = "session_key")
-    private Integer sessionKey;
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @Column(name = "password", nullable = false)
+    private String password;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 }

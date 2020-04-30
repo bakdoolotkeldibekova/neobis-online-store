@@ -12,11 +12,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "customer")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+public class Customer extends User{
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

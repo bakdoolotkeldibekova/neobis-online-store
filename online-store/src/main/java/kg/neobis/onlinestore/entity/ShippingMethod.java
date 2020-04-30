@@ -12,10 +12,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "shipping_method")
-public class ShippingMethod {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
+public class ShippingMethod extends BaseEntity{
+    @Column(name = "method", nullable = false)
     private String method;
 }
