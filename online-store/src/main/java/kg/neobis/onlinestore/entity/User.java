@@ -21,4 +21,7 @@ public class User extends BaseEntity{
     private String password;
     @Column(name = "phone_number")
     private String phoneNumber;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
