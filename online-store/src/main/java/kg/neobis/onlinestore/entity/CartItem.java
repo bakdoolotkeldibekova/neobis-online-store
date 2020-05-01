@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cart_item")
 public class CartItem extends BaseEntity {
-    @Column(name = "book_quantity", nullable = false)
-    private Integer bookQuantity;
+    @Column(name = "product_quantity", nullable = false)
+    private Integer productQuantity;
     @OneToOne
-    @JoinColumn(name = "book_id", nullable = false)
-    private Book book;
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "cart")
     private Cart cart;

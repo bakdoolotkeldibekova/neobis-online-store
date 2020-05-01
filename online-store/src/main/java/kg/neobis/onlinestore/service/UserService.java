@@ -1,13 +1,14 @@
 package kg.neobis.onlinestore.service;
 
 import kg.neobis.onlinestore.entity.User;
+import kg.neobis.onlinestore.model.UserAuth;
 
 import java.util.List;
 
 public interface UserService {
-    User create(User user);
-    User update(User user);
-    User getById(Long id);
     List<User> getAll();
-    void deleteById(Long id);
+    User getById(Long id);
+    User create(User user);
+    String getToken(UserAuth userAuth);
+    User getByLogin(String login);
 }

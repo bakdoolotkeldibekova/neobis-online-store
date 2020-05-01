@@ -18,22 +18,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address update(Address address) {
-        return addressRepository.save(address);
-    }
-
-    @Override
-    public Address getById(Long id) {
-        return addressRepository.findById(id).orElse(null);
-    }
-
-    @Override
     public List<Address> getAll() {
         return addressRepository.findAll();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        addressRepository.deleteById(id);
     }
 }
