@@ -9,4 +9,5 @@ public interface UserRoleService {
     List<UserRole> getAll();
     UserRole create(UserRole userRole);
     UserRole create(UserRoleModel userRoleModel);
+    void deleteById(Long id);
 }

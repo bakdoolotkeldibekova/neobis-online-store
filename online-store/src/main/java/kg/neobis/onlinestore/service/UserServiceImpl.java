@@ -1,13 +1,16 @@
 package kg.neobis.onlinestore.service;
 
+import kg.neobis.onlinestore.entity.Address;
 import kg.neobis.onlinestore.entity.User;
 import kg.neobis.onlinestore.entity.UserRole;
 import kg.neobis.onlinestore.model.UserAuth;
+import kg.neobis.onlinestore.model.UserModel;
 import kg.neobis.onlinestore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -19,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRoleService userRoleService;
+    @Autowired
+    private AddressService addressService;
 
     @Override
     public List<User> getAll() {
@@ -39,6 +44,27 @@ public class UserServiceImpl implements UserService {
         userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
         userRole.setUser(user);
         userRoleService.create(userRole);
+        return user;
+    }
+
+    @Override
+    public User create(UserModel userModel) {
+        User user = new User();
+        Address address = addressService.getById(userModel.getAddressId());
+        if(address != null){
+            user.setPassword(passwordEncoder.encode(userModel.getPassword()));
+            user.setLogin(userModel.getLogin());
+            user.setAddress(address);
+            user.setEmail(userModel.getEmail());
+            user.setIsActive(userModel.getIsActive());
+            user.setPhoneNumber(userModel.getPhoneNumber());
+            user.setDateCreated(LocalDateTime.now());
+            user = userRepository.save(user);
+            UserRole userRole = new UserRole();
+            userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
+            userRole.setUser(user);
+            userRoleService.create(userRole);
+        }
         return user;
     }
 

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 /** Конфигурация Security **/
 
-@EnableWebSecurity // <- this
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select login, password, is_active, email, phone_number, address_id from users where login=?")
+                .usersByUsernameQuery("select login, password, is_active from users where login=?")
                 .authoritiesByUsernameQuery("select u.login, ur.role_name from user_role ur inner join users u on ur.user_id=u.id where u.login=? and u.is_active=1");
     }
 
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/product").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/product").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/product").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/category").hasRole("ADMIN")
                 .and().csrf().disable();
     }
 

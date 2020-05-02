@@ -18,6 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category getById(Long id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public Category create(Category category) {
         return categoryRepository.save(category);
     }

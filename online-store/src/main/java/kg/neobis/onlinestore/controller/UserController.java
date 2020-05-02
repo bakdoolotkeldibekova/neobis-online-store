@@ -2,6 +2,7 @@ package kg.neobis.onlinestore.controller;
 
 import kg.neobis.onlinestore.entity.User;
 import kg.neobis.onlinestore.model.UserAuth;
+import kg.neobis.onlinestore.model.UserModel;
 import kg.neobis.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,11 @@ public class UserController {
     }
 
     @PostMapping
+    public User create(@RequestBody UserModel userModel) {
+        return userService.create(userModel);
+    }
+
+    @PostMapping("/old")
     public User create(@RequestBody User user) {
         return userService.create(user);
     }

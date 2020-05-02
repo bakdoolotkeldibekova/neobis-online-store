@@ -28,4 +28,9 @@ public class UserRoleController {
     public UserRole create(@RequestBody UserRole userRole) {
         return userRoleService.create(userRole);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id){
+        userRoleService.deleteById(id);
+    }
 }

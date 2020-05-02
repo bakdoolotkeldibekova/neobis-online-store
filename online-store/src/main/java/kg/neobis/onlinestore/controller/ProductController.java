@@ -1,6 +1,7 @@
 package kg.neobis.onlinestore.controller;
 
 import kg.neobis.onlinestore.entity.Product;
+import kg.neobis.onlinestore.model.ProductModel;
 import kg.neobis.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,9 +35,14 @@ public class ProductController {
         return new ResponseEntity<>(product, headers, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/old")
     public Product create(@RequestBody Product product) {
         return productService.create(product);
+    }
+
+    @PostMapping
+    public Product create(@RequestBody ProductModel productModel) {
+        return productService.create(productModel);
     }
 
     @PutMapping
