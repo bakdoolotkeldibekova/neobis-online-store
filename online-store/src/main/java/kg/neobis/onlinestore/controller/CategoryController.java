@@ -22,4 +22,9 @@ public class CategoryController {
     public List<Category> getAll(){
         return categoryService.getAll();
     }
+
+    @DeleteMapping
+    public Category deleteById(@RequestBody Long id){
+        return categoryService.deleteById(id);
+    }
 }

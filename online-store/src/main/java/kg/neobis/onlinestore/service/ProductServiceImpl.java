@@ -2,11 +2,13 @@ package kg.neobis.onlinestore.service;
 
 import kg.neobis.onlinestore.entity.Category;
 import kg.neobis.onlinestore.entity.Product;
+import kg.neobis.onlinestore.entity.User;
 import kg.neobis.onlinestore.model.ProductModel;
 import kg.neobis.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<Product> getAll() {
@@ -33,7 +37,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(ProductModel productModel) {
+    public Product create(ProductModel productModel, String userLogin) {
+        User user = userService.getByLogin(userLogin);
+        if(user == null) {
+            return null;
+        }
         Category category = categoryService.getById(productModel.getCategoryId());
         Product product = new Product();
         if(category != null){

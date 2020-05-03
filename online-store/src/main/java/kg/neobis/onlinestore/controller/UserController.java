@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<User> getAll() {
         return userService.getAll();
     }
@@ -26,6 +26,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User getById(@PathVariable Long id) {
         return userService.getById(id);
+    }
+
+    @GetMapping("/my")
+    public User getById(Principal principal) {
+        return userService.getMy(principal.getName());
     }
 
     @PostMapping
@@ -45,9 +50,4 @@ public class UserController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/check")
-    public User getByToken(Principal principal) {
-        String userLogin = principal.getName();
-        return userService.getByLogin(userLogin);
-    }
 }

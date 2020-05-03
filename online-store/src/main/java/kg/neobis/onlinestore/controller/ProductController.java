@@ -1,6 +1,7 @@
 package kg.neobis.onlinestore.controller;
 
 import kg.neobis.onlinestore.entity.Product;
+import kg.neobis.onlinestore.entity.User;
 import kg.neobis.onlinestore.model.ProductModel;
 import kg.neobis.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -41,8 +43,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product create(@RequestBody ProductModel productModel) {
-        return productService.create(productModel);
+    public Product create(@RequestBody ProductModel productModel, Principal principal) {
+        String userLogin = principal.getName();
+        return productService.create(productModel, userLogin);
     }
 
     @PutMapping

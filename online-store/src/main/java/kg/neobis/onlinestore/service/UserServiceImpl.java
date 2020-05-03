@@ -1,6 +1,7 @@
 package kg.neobis.onlinestore.service;
 
 import kg.neobis.onlinestore.entity.Address;
+import kg.neobis.onlinestore.entity.Cart;
 import kg.neobis.onlinestore.entity.User;
 import kg.neobis.onlinestore.entity.UserRole;
 import kg.neobis.onlinestore.model.UserAuth;
@@ -24,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleService userRoleService;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private CartService cartService;
 
     @Override
     public List<User> getAll() {
@@ -33,6 +36,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public User getMy(String userLogin) {
+        User user = getByLogin(userLogin);
+        return user;
     }
 
     @Override
@@ -48,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(UserModel userModel) {
+    public User create(UserModel userModel) { //при создании user'a создается userRole, Cart
         User user = new User();
         Address address = addressService.getById(userModel.getAddressId());
         if(address != null){
@@ -64,6 +73,10 @@ public class UserServiceImpl implements UserService {
             userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
             userRole.setUser(user);
             userRoleService.create(userRole);
+            Cart cart = new Cart();
+            cart.setUser(user);
+            cart.setDateCreated(LocalDateTime.now());
+            cartService.create(cart);
         }
         return user;
     }
