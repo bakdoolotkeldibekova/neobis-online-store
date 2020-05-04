@@ -30,7 +30,7 @@ public class CartItemController {
         return cartItemService.getById(id, principal.getName());
     }
 
-    @GetMapping
+    @GetMapping //get all items in user's cart
     public List<CartItem> getAllMy(Principal principal){ //только после регистрации
         return cartItemService.getAllMy(principal.getName());
     }

@@ -48,7 +48,6 @@ public class ProductServiceImpl implements ProductService {
             product.setName(productModel.getName());
             product.setPrice(productModel.getPrice());
             product.setCategory(category);
-            product.setDateCreated(LocalDateTime.now());
             productRepository.save(product);
         }
         return product;

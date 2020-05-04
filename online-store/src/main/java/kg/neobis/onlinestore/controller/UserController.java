@@ -38,11 +38,6 @@ public class UserController {
         return userService.create(userModel);
     }
 
-    @PostMapping("/old")
-    public User create(@RequestBody User user) {
-        return userService.create(user);
-    }
-
     @PostMapping("/auth")
     public ResponseEntity<String> getToken(@RequestBody UserAuth userAuth) {
         String result = userService.getToken(userAuth);

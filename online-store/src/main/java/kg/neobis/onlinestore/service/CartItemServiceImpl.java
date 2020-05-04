@@ -38,7 +38,9 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItem deleteById(Long id, String userLogin) {
         CartItem cartItem = getById(id, userLogin);
-        cartItemRepository.deleteById(id);
+        if (cartItem != null){
+            cartItemRepository.deleteById(id);
+        }
         return cartItem;
     }
 

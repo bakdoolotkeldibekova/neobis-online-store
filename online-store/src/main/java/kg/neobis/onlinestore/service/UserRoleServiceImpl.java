@@ -40,4 +40,14 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void deleteById(Long id) {
         userRoleRepository.deleteById(id);
     }
+
+    @Override
+    public UserRole update(UserRoleModel userRoleModel) {
+        User user = userService.getById(userRoleModel.getUserId());
+        if(user == null) return null;
+        UserRole userRole = new UserRole();
+        userRole.setRoleName(userRoleModel.getRoleName());
+        userRole.setUser(user);
+        return userRoleRepository.save(userRole);
+    }
 }

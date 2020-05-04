@@ -1,9 +1,6 @@
 package kg.neobis.onlinestore.service;
 
-import kg.neobis.onlinestore.entity.Address;
-import kg.neobis.onlinestore.entity.Cart;
-import kg.neobis.onlinestore.entity.User;
-import kg.neobis.onlinestore.entity.UserRole;
+import kg.neobis.onlinestore.entity.*;
 import kg.neobis.onlinestore.model.UserAuth;
 import kg.neobis.onlinestore.model.UserModel;
 import kg.neobis.onlinestore.repository.UserRepository;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -27,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private AddressService addressService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public List<User> getAll() {
@@ -45,18 +43,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        user = userRepository.save(user);
-        UserRole userRole = new UserRole();
-        userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
-        userRole.setUser(user);
-        userRoleService.create(userRole);
-        return user;
-    }
-
-    @Override
     public User create(UserModel userModel) { //при создании user'a создается userRole, Cart
         User user = new User();
         Address address = addressService.getById(userModel.getAddressId());
@@ -67,7 +53,6 @@ public class UserServiceImpl implements UserService {
             user.setEmail(userModel.getEmail());
             user.setIsActive(userModel.getIsActive());
             user.setPhoneNumber(userModel.getPhoneNumber());
-            user.setDateCreated(LocalDateTime.now());
             user = userRepository.save(user);
             UserRole userRole = new UserRole();
             userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
@@ -75,8 +60,10 @@ public class UserServiceImpl implements UserService {
             userRoleService.create(userRole);
             Cart cart = new Cart();
             cart.setUser(user);
-            cart.setDateCreated(LocalDateTime.now());
             cartService.create(cart);
+            Order order = new Order();
+            order.setUser(user);
+            orderService.create(order);
         }
         return user;
     }
