@@ -36,27 +36,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/product").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/product").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/product").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST, "/api/category").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/category").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/user/all").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/cart_item").hasRole("CUSTOMER")
+
+                .antMatchers(HttpMethod.POST, "/api/cart_item").hasAnyRole("ADMIN", "CUSTOMER")
                 .antMatchers(HttpMethod.DELETE, "/api/cart_item").hasAnyRole("ADMIN", "CUSTOMER")
                 .antMatchers(HttpMethod.GET, "/api/cart_item").hasAnyRole("ADMIN", "CUSTOMER")
+
                 .antMatchers(HttpMethod.GET, "/api/user/my").hasAnyRole("ADMIN", "CUSTOMER")
                 .antMatchers(HttpMethod.GET, "/api/user/all").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST, "/api/user-role").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/user-role").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/user-role/role").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/user-role").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/user-role").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST, "/api/payment_method").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/payment_method").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST, "/api/shipping_method").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/shipping_method").hasRole("ADMIN")
+
                 .antMatchers(HttpMethod.POST, "/api/order_item").hasRole("CUSTOMER")
                 .antMatchers(HttpMethod.DELETE, "/api/order_item").hasAnyRole("ADMIN", "CUSTOMER")
                 .antMatchers(HttpMethod.GET, "/api/order_item").hasAnyRole("ADMIN", "CUSTOMER")
+
                 .antMatchers(HttpMethod.PUT, "/api/order/create").hasRole("CUSTOMER")
                 .antMatchers(HttpMethod.PUT, "/api/order/delivered").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order/status").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order/date").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order/amount").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order/paymentAndDate").hasRole("ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/api/address").hasRole("ADMIN")
+
                 .and().csrf().disable();
     }
     @Bean

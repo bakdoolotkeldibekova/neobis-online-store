@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserModel {
     private String login;
-    private String email;
     private String password;
+    private String email;
     private String phoneNumber;
     private Long addressId;
     private Integer isActive; //0-inactive, 1-active...

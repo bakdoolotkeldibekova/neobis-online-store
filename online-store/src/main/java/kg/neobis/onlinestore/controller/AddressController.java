@@ -22,9 +22,4 @@ public class AddressController {
     public List<Address> getAll(){
         return addressService.getAll();
     }
-
-    @GetMapping("/{id}")
-    public Address getById(@PathVariable Long id){
-        return addressService.getById(id);
-    }
 }

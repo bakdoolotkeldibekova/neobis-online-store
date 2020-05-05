@@ -8,6 +8,7 @@ import kg.neobis.onlinestore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,5 +58,25 @@ public class OrderServiceImpl implements OrderService {
     public Order orderDelivered(Order order) {
         order.setStatus("delivered");
         return order;
+    }
+
+    @Override
+    public List<Order> getAllByDateTimeCreatedBetween(LocalDateTime a, LocalDateTime b) {
+        return orderRepository.findAllByDateCreatedBetween(a ,b);
+    }
+
+    @Override
+    public List<Order> getAllByStatus(String status) {
+        return orderRepository.findAllByStatusIgnoringCase(status);
+    }
+
+    @Override
+    public List<Order> getAllByAmountBetween(Integer a, Integer b) {
+        return orderRepository.findAllByAmountBetween(a, b);
+    }
+
+    @Override
+    public List<Order> getAllByPaymentMethodAndDateTimeCreatedAfter(String method, LocalDateTime dateTime) {
+        return orderRepository.findAllByPaymentMethod_MethodContainingIgnoringCaseAndDateCreatedAfter(method, dateTime);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,26 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/{name}")
+    public List<Product> getAllByName(@PathVariable String name) {
+        return productService.getAllByName(name);
+    }
+
+    @GetMapping("/price")
+    public List<Product> getAllByPriceBetween(@RequestParam(name = "from") Integer from, @RequestParam(name = "to") Integer to) {
+        return productService.getAllByPrice(from, to);
+    }
+
+    @GetMapping("/category")
+    public List<Product> getAllByCategoryName(@RequestParam(name = "name") String name) {
+        return productService.getAllByCategoryName(name);
+    }
+
+    @GetMapping("/dateTime")
+    public List<Product> getAllByDateTimeAfter(@RequestParam(name = "dateTime") LocalDateTime dateTime) {
+        return productService.getAllByDateTimeAfter(dateTime);
+    }
 
     @GetMapping
     public List<Product> getAll() {

@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             user.setPhoneNumber(userModel.getPhoneNumber());
             user = userRepository.save(user);
             UserRole userRole = new UserRole();
-            userRole.setRoleName("ROLE_ADMIN"); //вначале все юзеры админы. пока что
+            userRole.setRoleName("ROLE_CUSTOMER"); //вначале все юзеры customer.
             userRole.setUser(user);
             userRoleService.create(userRole);
             Cart cart = new Cart();

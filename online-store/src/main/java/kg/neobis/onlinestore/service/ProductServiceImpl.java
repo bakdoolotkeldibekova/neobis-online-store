@@ -66,4 +66,24 @@ public class ProductServiceImpl implements ProductService {
        }
        return product;
     }
+
+    @Override
+    public List<Product> getAllByName(String name) {
+        return productRepository.findAllByNameContainingIgnoringCase(name);
+    }
+
+    @Override
+    public List<Product> getAllByPrice(Integer from, Integer to) {
+        return productRepository.findAllByPriceBetween(from, to);
+    }
+
+    @Override
+    public List<Product> getAllByCategoryName(String categoryName) {
+        return productRepository.findAllByCategory_NameContainingIgnoringCase(categoryName);
+    }
+
+    @Override
+    public List<Product> getAllByDateTimeAfter(LocalDateTime dateTime) {
+        return productRepository.findAllByDateCreatedAfter(dateTime);
+    }
 }

@@ -19,19 +19,19 @@ public class UserRoleController {
         return userRoleService.getAll();
     }
 
+    @GetMapping("/role")
+    public List<UserRole> getAllByRoleName(@RequestParam(name = "roleName") String roleName) {
+        return userRoleService.getAllByRoleName(roleName);
+    }
+
     @PostMapping
     public UserRole create(@RequestBody UserRoleModel userRoleModel) {
         return userRoleService.create(userRoleModel);
     }
 
-    @PostMapping("/old")
-    public UserRole create(@RequestBody UserRole userRole) {
-        return userRoleService.create(userRole);
-    }
-
     @PutMapping
-    public UserRole update(@RequestBody UserRoleModel userRoleModel){
-        return userRoleService.update(userRoleModel);
+    public UserRole update(@RequestBody UserRole userRole){
+        return userRoleService.update(userRole);
     }
 
     @DeleteMapping("/{id}")

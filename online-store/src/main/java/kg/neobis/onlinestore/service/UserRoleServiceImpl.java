@@ -42,12 +42,14 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public UserRole update(UserRoleModel userRoleModel) {
-        User user = userService.getById(userRoleModel.getUserId());
+    public UserRole update(UserRole userRole) {
+        User user = userService.getById(userRole.getUser().getId());
         if(user == null) return null;
-        UserRole userRole = new UserRole();
-        userRole.setRoleName(userRoleModel.getRoleName());
-        userRole.setUser(user);
         return userRoleRepository.save(userRole);
+    }
+
+    @Override
+    public List<UserRole> getAllByRoleName(String roleName) {
+        return userRoleRepository.findAllByRoleNameContainingIgnoringCase(roleName);
     }
 }
