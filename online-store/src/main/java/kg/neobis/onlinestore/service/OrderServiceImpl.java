@@ -18,6 +18,8 @@ public class OrderServiceImpl implements OrderService {
     private UserService userService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private MailService mailService;
 
     @Override
     public Order create(Order order) {
@@ -43,6 +45,9 @@ public class OrderServiceImpl implements OrderService {
                 amount += (o.getProductQuantity()*o.getProduct().getPrice());
             }
             order.setAmount(amount);
+            String text = "Dear, " + userLogin  + ", your order is successfully placed."
+                    + "\n\n Regards, online-store project (:";
+            System.out.println(mailService.send(user.getEmail(), "online-store", text));
             return orderRepository.save(order);
         }
         return null;
