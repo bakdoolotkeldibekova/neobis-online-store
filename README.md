@@ -7,8 +7,8 @@ Online Book Store
 
 ## endpoints:
 
-**create address -> everyone has access.**
-[POST] http://localhost:8080/api/address
+create address -> everyone has access.
+**[POST] http://localhost:8080/api/address**
 _*{
 	"country":"",
 	"region":"",
