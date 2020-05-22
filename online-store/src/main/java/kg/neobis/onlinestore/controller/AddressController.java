@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/api/address")
 public class AddressController {
     @Autowired
-    public AddressService addressService;
+    private AddressService addressService;
 
     @PostMapping
     public Address create(@RequestBody Address address){
